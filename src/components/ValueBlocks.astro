@@ -430,6 +430,11 @@ import Terminal from './Terminal.astro';
   order: 1;
 }
 
+.block-inner > .block-content,
+.block-inner > .block-visual {
+  min-width: 0;
+}
+
 .block-content .category-label {
   display: block;
   margin-bottom: 12px;
@@ -695,6 +700,9 @@ import Terminal from './Terminal.astro';
 
 /* WAVE DIAGRAM */
 .wave-diagram {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 32px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
@@ -787,6 +795,13 @@ import Terminal from './Terminal.astro';
   margin: 8px 0;
 }
 
+.wave-connector svg {
+  width: min(100%, 400px);
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .block-inner {
@@ -794,8 +809,16 @@ import Terminal from './Terminal.astro';
     gap: 32px;
   }
 
+  .wave-diagram {
+    padding: 24px;
+  }
+
   .wave-tasks {
     grid-template-columns: 1fr;
+  }
+
+  .wave-tasks-single {
+    max-width: 100%;
   }
 
   .vb-reverse .block-inner > .block-content { order: 1; }
@@ -803,6 +826,12 @@ import Terminal from './Terminal.astro';
 
   .step-tag {
     left: 20px;
+  }
+}
+
+@media (max-width: 540px) {
+  .wave-diagram {
+    padding: 18px;
   }
 }
 </style>
