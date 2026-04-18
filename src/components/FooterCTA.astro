@@ -1,6 +1,9 @@
 ---
 // FooterCTA.astro
 // Footer with glowing CTA card — Dark Glass Fluid Theme
+
+const docsPath = `${import.meta.env.BASE_URL}docs`;
+const changelogPath = `${import.meta.env.BASE_URL}changelog`;
 ---
 
 <section id="footer-cta" class="section-black">
@@ -21,7 +24,7 @@
             </button>
           </div>
 
-          <a href="/docs" class="cta-button glass-pill" target="_blank" rel="noopener">
+          <a href={docsPath} class="cta-button glass-pill" target="_blank" rel="noopener">
             Get Started <span class="arrow">→</span>
           </a>
         </div>
@@ -33,7 +36,7 @@
       <span class="link-separator">·</span>
       <a href="https://docs.ez-agents.dev" target="_blank" rel="noopener">Documentation</a>
       <span class="link-separator">·</span>
-      <a href="/changelog">Changelog</a>
+      <a href={changelogPath}>Changelog</a>
       <span class="link-separator">·</span>
       <a href="https://github.com/howlil/ez-agents/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a>
     </div>

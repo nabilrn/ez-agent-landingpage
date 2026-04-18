@@ -14,12 +14,13 @@ interface Props {
 }
 
 const { title, description, sections } = Astro.props;
+const homePath = import.meta.env.BASE_URL;
 ---
 
 <Layout title={title} description={description}>
   <div class="docs-page" id="docs-page">
     <header class="docs-topbar">
-      <a href="/" class="docs-logo" aria-label="EZ Agents home">EZ AGENTS</a>
+      <a href={homePath} class="docs-logo" aria-label="EZ Agents home">EZ AGENTS</a>
       <button type="button" id="docs-theme-toggle" class="docs-theme-toggle" aria-label="Toggle docs theme" aria-pressed="false">
         <span class="theme-icon" aria-hidden="true">◐</span>
         <span class="theme-label">Dark mode</span>
@@ -78,7 +79,7 @@ const { title, description, sections } = Astro.props;
     <!-- Main content -->
     <main class="docs-main">
       <div class="docs-breadcrumb">
-        <a href="/">Home</a>
+        <a href={homePath}>Home</a>
         <span class="bc-sep">/</span>
         <span class="bc-current">Docs</span>
       </div>

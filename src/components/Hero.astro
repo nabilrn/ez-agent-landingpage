@@ -6,6 +6,8 @@ import WebGLChromaticLight from './WebGLChromaticLight.astro';
 import SVGFlowingPaths from './SVGFlowingPaths.astro';
 import Navigation from './Navigation.astro';
 import Terminal from './Terminal.astro';
+
+const docsPath = `${import.meta.env.BASE_URL}docs`;
 ---
 
 <section id="hero">
@@ -37,7 +39,7 @@ import Terminal from './Terminal.astro';
         </button>
       </div>
 
-      <a href="/docs" class="cta-button glass-pill" target="_blank" rel="noopener">
+      <a href={docsPath} class="cta-button glass-pill" target="_blank" rel="noopener">
         Get Started <span class="arrow">→</span>
       </a>
     </div>
