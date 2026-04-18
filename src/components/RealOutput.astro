@@ -1,0 +1,180 @@
+---
+// RealOutput.astro
+// Large terminal showing real session + planning directory tree — Dark Glass Fluid
+
+import Terminal from './Terminal.astro';
+---
+
+<section id="real-output" class="section-dark">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="headline-lg">Real commands. Real output.</h2>
+    </div>
+
+    <div class="output-layout">
+      <!-- Planning directory tree (floating behind) -->
+      <div class="planning-tree glass-card">
+        <div class="tree-header">
+          <span class="tree-icon">📁</span>
+          <span class="tree-title">.planning/</span>
+        </div>
+        <div class="tree-body">
+          <pre class="tree-content">.planning/
+├── ROADMAP.md
+├── REQUIREMENTS.md
+└── phases/
+    ├── 01-foundation/
+    │   ├── plan.md
+    │   ├── tasks/
+    │   │   ├── 1.1-database-schema.md
+    │   │   ├── 1.2-nextjs-setup.md
+    │   │   └── 1.3-project-config.md
+    │   └── verification.md
+    ├── 02-api/
+    │   ├── plan.md
+    │   └── tasks/
+    └── 03-frontend/
+        └── plan.md</pre>
+        </div>
+      </div>
+
+      <!-- Main terminal -->
+      <div class="main-terminal">
+        <Terminal large>
+          <pre><code><span class="prompt">$ /ez:new-project</span>
+<span class="gold">?</span> <span class="secondary">What are you building?</span> <span class="text-primary">Task management with real-time collaboration</span>
+<span class="gold">?</span> <span class="secondary">Tech stack?</span> <span class="text-primary">Next.js + Prisma + PostgreSQL</span>
+<span class="green">✓</span> <span class="secondary">Requirements — 12 items (MoSCoW prioritized)</span>
+<span class="green">✓</span> <span class="secondary">Roadmap — 6 phases</span>
+
+<span class="prompt">$ /ez:run-phase 1</span>
+<span class="gold">⟐</span> <span class="secondary">Planning phase 01-foundation...</span>
+  <span class="dim">→ 3 plans, 2 waves</span>
+
+<span class="gold">⟐</span> <span class="secondary">Executing Wave 1 (parallel):</span>
+  <span class="green">✓</span> <span class="secondary">schema</span> <span class="dim">[fresh ctx] → committed</span>
+  <span class="green">✓</span> <span class="secondary">setup</span> <span class="dim">[fresh ctx] → committed</span>
+  <span class="green">✓</span> <span class="secondary">config</span> <span class="dim">[fresh ctx] → committed</span>
+
+<span class="gold">⟐</span> <span class="secondary">Executing Wave 2:</span>
+  <span class="green">✓</span> <span class="secondary">auth endpoints</span> <span class="dim">[fresh ctx] → committed</span>
+
+<span class="gold">⟐</span> <span class="secondary">Verifying... all truths satisfied</span>
+<span class="green">✓</span> <span class="secondary">Phase 01 complete — 47 min</span>
+
+<span class="prompt">$ /ez:run-phase 2</span>
+<span class="gold">⟐</span> <span class="secondary">Planning phase 02-api...</span></code></pre>
+        </Terminal>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ambient glow behind section -->
+  <div class="section-ambient"></div>
+</section>
+
+<style>
+#real-output {
+  padding: var(--space-4xl) 0;
+  position: relative;
+  overflow: clip;
+}
+
+.section-ambient {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.04), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+  position: relative;
+  z-index: 1;
+}
+
+.section-header .headline-lg {
+  color: var(--text-primary);
+}
+
+.output-layout {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-right: 300px;
+  z-index: 1;
+}
+
+/* PLANNING TREE — Uses glass-card */
+.planning-tree {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  width: 280px;
+  z-index: 3;
+  transform: rotate(2deg);
+  opacity: 0.85;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--glass-shadow);
+}
+
+.planning-tree:hover {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.tree-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+}
+
+.tree-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.tree-body {
+  padding: 16px;
+}
+
+.tree-content {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  white-space: pre;
+  overflow: visible;
+}
+
+/* MAIN TERMINAL */
+.main-terminal {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1200px) {
+  .output-layout {
+    padding-right: 0;
+  }
+
+  .planning-tree {
+    display: none;
+  }
+}
+</style>

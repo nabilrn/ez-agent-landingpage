@@ -1,0 +1,128 @@
+---
+// Terminal.astro — Depth Black Glass Fluid
+const { large, title } = Astro.props;
+---
+
+<div class:list={["terminal", { large }]}>
+  <div class="terminal-chrome">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">{title || "Terminal — ez-agents"}</span>
+  </div>
+  <div class="terminal-body">
+    <slot />
+  </div>
+</div>
+
+<style>
+.terminal {
+  background: rgba(6, 6, 6, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--glass-radius-lg);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: var(--glass-blur-strong) saturate(160%);
+  -webkit-backdrop-filter: var(--glass-blur-strong) saturate(160%);
+  overflow: hidden;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  position: relative;
+  transition: var(--glass-transition);
+}
+
+.terminal.large {
+  max-width: 1120px;
+  background: rgba(6, 6, 6, 0.86);
+  border-radius: 20px;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: var(--glass-shadow-deep);
+  backdrop-filter: var(--glass-blur-strong) saturate(170%);
+  -webkit-backdrop-filter: var(--glass-blur-strong) saturate(170%);
+}
+
+.terminal-chrome {
+  display: flex;
+  align-items: center;
+  margin: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  position: relative;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  display: block;
+}
+
+.dot-red { background: #ff5f57; }
+.dot-yellow { background: #febc2e; }
+.dot-green { background: #28c840; }
+
+.terminal-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.terminal-body {
+  padding: 8px 24px 24px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  overflow-x: auto;
+}
+
+.terminal:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glass-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.terminal.large:hover {
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+}
+
+/* Terminal text styling */
+.terminal-body :global(.prompt) { color: var(--text-primary); }
+.terminal-body :global(.command) { color: var(--text-primary); }
+.terminal-body :global(.gold) { color: var(--accent-gold); }
+.terminal-body :global(.green) { color: var(--accent-green); }
+.terminal-body :global(.dim) { color: var(--text-tertiary); }
+.terminal-body :global(.secondary) { color: var(--text-secondary); }
+.terminal-body :global(.copper) { color: var(--accent-copper); }
+.terminal-body :global(.label) {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 768px) {
+  .terminal {
+    border-radius: var(--glass-radius);
+  }
+
+  .terminal-body {
+    padding: 16px;
+    font-size: 12px;
+  }
+}
+</style>

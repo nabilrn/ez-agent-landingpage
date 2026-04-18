@@ -1,0 +1,259 @@
+---
+// FooterCTA.astro
+// Footer with glowing CTA card — Dark Glass Fluid Theme
+---
+
+<section id="footer-cta" class="section-black">
+  <div class="container">
+    <div class="glowing-card">
+      <div class="card-inner">
+        <h2 class="cta-headline">Your next project deserves a process.</h2>
+        <p class="cta-subline">Install in 30 seconds. Ship your first phase in an hour.</p>
+
+        <div class="cta-actions">
+          <div class="install-block glass-pill" id="footer-install-block">
+            <code class="install-text">$ npm install -g @howlil/ez-agents</code>
+            <button class="copy-btn" id="footer-copy-btn" aria-label="Copy install command">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+
+          <a href="/docs" class="cta-button glass-pill" target="_blank" rel="noopener">
+            Get Started <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <a href="https://github.com/howlil/ez-agents" target="_blank" rel="noopener">GitHub</a>
+      <span class="link-separator">·</span>
+      <a href="https://docs.ez-agents.dev" target="_blank" rel="noopener">Documentation</a>
+      <span class="link-separator">·</span>
+      <a href="/changelog">Changelog</a>
+      <span class="link-separator">·</span>
+      <a href="https://github.com/howlil/ez-agents/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a>
+    </div>
+
+    <div class="footer-bottom">
+      MIT License · v5.0.0 · Built by @howlil
+    </div>
+  </div>
+</section>
+
+<style>
+#footer-cta {
+  position: relative;
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  overflow: hidden;
+}
+
+.glowing-card {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: var(--glass-blur-strong) saturate(170%);
+  -webkit-backdrop-filter: var(--glass-blur-strong) saturate(170%);
+  box-shadow: var(--glass-shadow-deep);
+  transition: var(--glass-transition);
+  overflow: hidden;
+}
+
+.glowing-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, transparent, var(--edge-cyan), var(--edge-violet), transparent);
+  left: 24px;
+  right: 24px;
+  top: 0;
+  height: 1px;
+  inset: unset;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.glowing-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+}
+
+.card-inner {
+  padding: 64px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-headline {
+  font-size: clamp(28px, 3.5vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.cta-subline {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.install-block {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.install-block:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.04);
+}
+
+.install-text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.copy-btn {
+  margin-left: 10px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+}
+
+.copy-btn:hover {
+  opacity: 1;
+}
+
+.copy-btn.copied {
+  color: var(--text-primary);
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.06);
+}
+
+.cta-button:hover .arrow {
+  opacity: 1;
+  transform: translateX(6px);
+}
+
+.arrow {
+  opacity: 0.7;
+  transition: opacity 0.3s, transform 0.3s;
+  display: inline-block;
+}
+
+/* FOOTER LINKS */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-top: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.link-separator {
+  color: var(--text-tertiary);
+  margin: 0 12px;
+}
+
+/* FOOTER BOTTOM */
+.footer-bottom {
+  text-align: center;
+  margin-top: var(--space-xl);
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 768px) {
+  .card-inner {
+    padding: 36px 24px;
+  }
+
+  .install-block {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .link-separator {
+    display: none;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+</style>
+
+<script is:inline>
+(function() {
+  const installBlock = document.getElementById('footer-install-block');
+  const copyBtn = document.getElementById('footer-copy-btn');
+
+  if (!installBlock || !copyBtn) return;
+
+  installBlock.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('npm install -g @howlil/ez-agents');
+      copyBtn.classList.add('copied');
+      copyBtn.innerHTML = '<span style="color: var(--text-primary); font-size: 12px;">Copied!</span>';
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+      }, 2000);
+    } catch (err) {
+      // Fallback
+    }
+  });
+})();
+</script>

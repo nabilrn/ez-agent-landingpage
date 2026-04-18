@@ -1,0 +1,273 @@
+---
+// Runtimes.astro
+// Minimalist infinite marquee of supported coding agent logos
+
+import { getLobeIconCDN } from '@lobehub/icons/es/features/getLobeIconCDN/index.js';
+
+const runtimeItems = [
+  { name: 'Claude Code', id: 'claudecode' },
+  // OpenCode has no color SVG in lobe-icons — fall back to mono
+  { name: 'OpenCode', id: 'opencode', iconType: 'mono' },
+  { name: 'Gemini CLI', id: 'geminicli' },
+  { name: 'Codex', id: 'codex' },
+  { name: 'GitHub Copilot', id: 'githubcopilot', iconType: 'mono' },
+  { name: 'Qwen', id: 'qwen' },
+  { name: 'Kimi', id: 'kimi' },
+];
+
+const marqueeItems = runtimeItems.map((item) => ({
+  ...item,
+  iconSrc: getLobeIconCDN(item.id, {
+    format: 'svg',
+    type: item.iconType ?? 'color',
+    cdn: 'github',
+  }),
+  isMono: item.iconType === 'mono',
+}));
+---
+
+<section id="runtimes" class="section-dark">
+  <div class="container">
+    <div class="section-header">
+      <span class="category-label">Compatible Runtimes</span>
+      <h2 class="headline-lg">Works everywhere you code.</h2>
+    </div>
+  </div>
+
+  <div class="marquee-wrapper">
+    <div class="marquee-track" id="runtime-marquee-track">
+      <div class="marquee-group" id="runtime-marquee-group-a">
+        {marqueeItems.map((item) => (
+          <div class="marquee-item">
+            <div class:list={["agent-icon", { "agent-icon--mono": item.isMono }]}>
+              <img src={item.iconSrc} alt={`${item.name} icon`} loading="lazy" decoding="async" />
+            </div>
+            <span class="agent-name">{item.name}</span>
+          </div>
+        ))}
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        {marqueeItems.map((item) => (
+          <div class="marquee-item">
+            <div class:list={["agent-icon", { "agent-icon--mono": item.isMono }]}>
+              <img src={item.iconSrc} alt="" loading="lazy" decoding="async" />
+            </div>
+            <span class="agent-name">{item.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+#runtimes {
+  padding: var(--space-4xl) 0;
+  overflow: hidden;
+}
+
+#runtimes .section-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+#runtimes .section-header .category-label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+#runtimes .section-header .headline-lg {
+  color: var(--text-primary);
+}
+
+/* Marquee container */
+.marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 1) 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 1) 90%,
+    transparent 100%
+  );
+}
+
+/* Scrolling track */
+.marquee-track {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+.marquee-group {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  white-space: nowrap;
+  gap: 48px;
+  padding-right: 48px;
+  width: max-content;
+  flex-shrink: 0;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Each item */
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 24px;
+  border-radius: var(--glass-radius-pill);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+.marquee-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Icon circle */
+.agent-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.agent-icon img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Mono icons render dark — invert so they show against the dark background */
+.agent-icon--mono img {
+  filter: invert(1) brightness(1.15);
+  opacity: 0.92;
+}
+
+.marquee-item:hover .agent-icon {
+  transform: scale(1.03);
+}
+
+/* Name */
+.agent-name {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.marquee-item:hover .agent-name {
+  color: var(--text-primary);
+}
+
+/* Animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-1 * var(--marquee-shift, 50%)), 0, 0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .marquee-group {
+    gap: 32px;
+    padding-right: 32px;
+  }
+
+  .marquee-track {
+    animation-duration: 19s;
+  }
+
+  .marquee-item {
+    padding: 10px 18px;
+    gap: 10px;
+  }
+
+  .agent-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .agent-icon img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .agent-name {
+    font-size: 13px;
+  }
+}
+</style>
+
+<script is:inline>
+(function () {
+  const track = document.getElementById('runtime-marquee-track');
+  const groupA = document.getElementById('runtime-marquee-group-a');
+  if (!track || !groupA) return;
+
+  const updateShift = () => {
+    const width = groupA.getBoundingClientRect().width;
+    if (width > 0) {
+      track.style.setProperty('--marquee-shift', `${width}px`);
+    }
+  };
+
+  const imgs = Array.from(track.querySelectorAll('img'));
+  let pending = imgs.length;
+
+  if (pending === 0) {
+    updateShift();
+  } else {
+    const done = () => {
+      pending -= 1;
+      if (pending <= 0) updateShift();
+    };
+
+    imgs.forEach((img) => {
+      if (img.complete) {
+        done();
+        return;
+      }
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', done, { once: true });
+    });
+  }
+
+  updateShift();
+  window.addEventListener('resize', () => requestAnimationFrame(updateShift), { passive: true });
+})();
+</script>

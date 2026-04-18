@@ -1,0 +1,32 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+import ProjectDocumentation from '../../docs/PROJECT-DOCUMENTATION.md';
+import projectDocumentationRaw from '../../docs/PROJECT-DOCUMENTATION.md?raw';
+
+interface Section {
+  id: string;
+  label: string;
+}
+
+const sections: Section[] = projectDocumentationRaw
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .map((line) => {
+    const match = line.match(/^\d+\.\s+\[(.+?)\]\(#([^)]+)\)$/);
+    return match
+      ? {
+          label: match[1],
+          id: match[2],
+        }
+      : null;
+  })
+  .filter((item): item is Section => item !== null);
+---
+
+<DocsLayout
+  title="Documentation — EZ Agents"
+  description="Comprehensive reference for EZ Agents architecture, workflows, and commands."
+  sections={sections}
+>
+  <ProjectDocumentation />
+</DocsLayout>

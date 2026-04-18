@@ -1,0 +1,445 @@
+---
+// Agents.astro
+// 8 specialist agents — Dark Glass Fluid Theme
+
+const coreAgents = [
+  {
+    name: 'ez-planner',
+    desc: 'Creates executable phase plans.',
+    tools: ['Goal analysis', 'Dependency mapping', 'Task generation'],
+    model: 'Opus / Sonnet',
+    accent: 'gold',
+    glyph: 'P',
+  },
+  {
+    name: 'ez-executor',
+    desc: 'Implements features with atomic commits.',
+    tools: ['Code generation', 'File I/O', 'Git operations'],
+    model: 'Sonnet / Haiku',
+    accent: 'green',
+    glyph: 'E',
+  },
+  {
+    name: 'ez-verifier',
+    desc: 'Validates work against observable truths.',
+    tools: ['File checks', 'API testing', 'Build validation'],
+    model: 'Sonnet / Haiku',
+    accent: 'copper',
+    glyph: 'V',
+  },
+];
+
+const supportAgents = [
+  {
+    name: 'ez-debugger',
+    desc: 'Investigates and resolves task failures with full context traces.',
+    glyph: 'D',
+  },
+  {
+    name: 'ez-roadmapper',
+    desc: 'Generates phased roadmaps from requirements with MoSCoW prioritization.',
+    glyph: 'R',
+  },
+  {
+    name: 'ez-phase-researcher',
+    desc: "Researches best practices for the current phase's technology stack.",
+    glyph: 'Ph',
+  },
+  {
+    name: 'ez-project-researcher',
+    desc: 'Understands your codebase architecture and conventions.',
+    glyph: 'Pr',
+  },
+  {
+    name: 'ez-codebase-mapper',
+    desc: 'Maps dependencies and relationships across your entire project.',
+    glyph: 'M',
+  },
+];
+---
+
+<section id="agents" class="section-light">
+  <div class="container">
+    <div class="section-header">
+      <span class="category-label">The team</span>
+      <h2 class="headline-md">8 specialists. Zero generalists.</h2>
+      <p class="body-text">Each agent has defined tools, a model tier, and a single job.</p>
+    </div>
+
+    <!-- CORE TRIO -->
+    <div class="agent-tier">
+      <div class="tier-label">
+        <span class="tier-dot"></span>
+        <span class="tier-name">Core trio</span>
+        <span class="tier-sub">The loop — plan → execute → verify</span>
+      </div>
+
+      <div class="core-trio">
+        {coreAgents.map((agent) => (
+          <article class={`agent-card glass-card-gradient agent-card--${agent.accent}`}>
+            <div class="agent-top">
+              <div class="agent-glyph" aria-hidden="true">{agent.glyph}</div>
+              <div class="agent-identity">
+                <span class="agent-badge">AGENT</span>
+                <div class="agent-name">{agent.name}</div>
+              </div>
+            </div>
+            <p class="agent-desc">{agent.desc}</p>
+            <div class="agent-tools">
+              {agent.tools.map((tool) => (
+                <span class="tool-pill">{tool}</span>
+              ))}
+            </div>
+            <div class="agent-footer">
+              <span class="model-label">Model</span>
+              <span class="model-value">{agent.model}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <!-- SUPPORT TEAM -->
+    <div class="agent-tier agent-tier--support">
+      <div class="tier-label">
+        <span class="tier-dot tier-dot--muted"></span>
+        <span class="tier-name">Support team</span>
+        <span class="tier-sub">Specialists called in as needed</span>
+      </div>
+
+      <div class="support-grid">
+        {supportAgents.map((agent) => (
+          <article class="support-card glass-card-gradient">
+            <div class="support-top">
+              <div class="support-glyph" aria-hidden="true">{agent.glyph}</div>
+              <span class="support-badge">AGENT</span>
+            </div>
+            <div class="support-name">{agent.name}</div>
+            <p class="support-desc">{agent.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+#agents {
+  padding: var(--space-4xl) 0;
+  overflow: hidden;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.section-header .category-label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section-header .headline-md {
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.section-header .body-text {
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* TIER LABEL ——  section group heading */
+.agent-tier {
+  margin-bottom: 48px;
+}
+
+.agent-tier:last-child {
+  margin-bottom: 0;
+}
+
+.tier-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-left: 4px;
+}
+
+.tier-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+.tier-dot--muted {
+  background: var(--text-tertiary);
+  box-shadow: none;
+}
+
+.tier-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.tier-sub {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-left: 6px;
+}
+
+/* CORE TRIO */
+.core-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.agent-card {
+  position: relative;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: var(--glass-transition);
+}
+
+/* Per-card accent top-line (replaces default cyan-violet sheen) */
+.agent-card::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--card-accent, rgba(255, 255, 255, 0.4)) 35%,
+    var(--card-accent, rgba(255, 255, 255, 0.4)) 65%,
+    transparent
+  );
+  opacity: 0.75;
+}
+
+.agent-card:hover::before {
+  opacity: 1;
+}
+
+.agent-card--gold { --card-accent: rgba(200, 169, 114, 0.7); }
+.agent-card--green { --card-accent: rgba(127, 186, 92, 0.7); }
+.agent-card--copper { --card-accent: rgba(196, 122, 82, 0.7); }
+
+.agent-card--gold .agent-glyph {
+  color: var(--accent-gold);
+  background: rgba(200, 169, 114, 0.08);
+  border-color: rgba(200, 169, 114, 0.3);
+  box-shadow: 0 0 24px rgba(200, 169, 114, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.agent-card--green .agent-glyph {
+  color: var(--accent-green);
+  background: rgba(127, 186, 92, 0.08);
+  border-color: rgba(127, 186, 92, 0.3);
+  box-shadow: 0 0 24px rgba(127, 186, 92, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.agent-card--copper .agent-glyph {
+  color: var(--accent-copper);
+  background: rgba(196, 122, 82, 0.08);
+  border-color: rgba(196, 122, 82, 0.3);
+  box-shadow: 0 0 24px rgba(196, 122, 82, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.agent-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.agent-glyph {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.agent-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.agent-badge {
+  display: inline-block;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  line-height: 1;
+}
+
+.agent-name {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.agent-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.agent-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tool-pill {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.agent-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.model-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.model-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* SUPPORT TEAM */
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.support-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: var(--glass-transition);
+}
+
+.support-card::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent
+  );
+  opacity: 0.5;
+}
+
+.support-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.support-glyph {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.support-badge {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 3px 7px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  line-height: 1;
+}
+
+.support-name {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.support-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .core-trio {
+    grid-template-columns: 1fr;
+  }
+
+  .support-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tier-sub {
+    display: none;
+  }
+}
+</style>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="EZ">
+  <defs>
+    <linearGradient id="ez-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0D0D0D" />
+      <stop offset="100%" stop-color="#080808" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#ez-bg)" />
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="rgba(255,255,255,0.12)" />
+  <text
+    x="32"
+    y="35"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="'JetBrains Mono', 'Berkeley Mono', 'Fira Code', 'Cascadia Code', monospace"
+    font-size="27"
+    font-weight="700"
+    letter-spacing="-1.2"
+    fill="rgba(255,255,255,0.92)"
+  >EZ</text>
+</svg>

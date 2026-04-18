@@ -1,0 +1,808 @@
+---
+// ValueBlocks.astro — Depth Black Glass Fluid
+// Three feature blocks: Plan, Execute, Verify
+
+import Terminal from './Terminal.astro';
+---
+
+<section id="value-blocks" class="section-dark">
+  <div class="container-wide">
+
+    <div class="vb-heading">
+      <span class="category-label">How it works</span>
+      <h2 class="headline-lg">Three phases. One commit per task.</h2>
+      <p class="body-text">From intent to verification — here's the loop your project runs in.</p>
+    </div>
+
+    <!-- BLOCK A — PLAN -->
+    <div class="value-block vb-plan">
+      <div class="glass-wrapper">
+        <span class="step-tag" aria-hidden="true">01 · PLAN</span>
+        <div class="block-inner">
+          <div class="block-content">
+            <span class="category-label">STRUCTURED PLANNING</span>
+            <h2 class="headline-lg">Plans are prompts, not documents.</h2>
+            <p class="body-text">
+              The Planner agent breaks your goal into 2-3 focused tasks per phase. Each task gets a self-contained plan with context, acceptance criteria, and verification steps. No 40-page specs — just executable intent.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <span class="feature-pill">Goal-backward methodology</span>
+                <span class="feature-desc">Starts from the definition of done and works backward to your current state.</span>
+              </li>
+              <li>
+                <span class="feature-pill">Dependency-aware waves</span>
+                <span class="feature-desc">Tasks are grouped into parallel waves when possible, sequential when required.</span>
+              </li>
+              <li>
+                <span class="feature-pill">2-3 tasks per plan</span>
+                <span class="feature-desc">Small, focused plans that ship fast. No analysis paralysis.</span>
+              </li>
+            </ul>
+            <div class="replaces-row">
+              <span class="replaces-label">Replaces:</span>
+              <span class="replaces-items">Ad-hoc prompting · Manual task breakdown · Context window guessing</span>
+            </div>
+          </div>
+          <div class="block-visual">
+            <div class="code-panel">
+              <div class="code-header">
+                <span class="code-filename">.planning/phases/01-foundation/plan.md</span>
+              </div>
+              <pre class="code-body"><code><span class="yaml-front">---</span>
+<span class="yaml-key">phase:</span> <span class="yaml-value">01-foundation</span>
+<span class="yaml-key">tasks:</span> <span class="yaml-number">3</span>
+<span class="yaml-key">waves:</span> <span class="yaml-number">2</span>
+<span class="yaml-front">---</span>
+
+<span class="xml-tag">&lt;task id="1.1"&gt;</span>
+<span class="xml-key">  goal:</span> Define database schema for
+    users, projects, and tasks
+<span class="xml-key">  accept:</span> Prisma schema with
+    relations, indexes, constraints
+<span class="xml-key">  verify:</span> prisma validate passes
+<span class="xml-tag">&lt;/task&gt;</span>
+
+<span class="xml-tag">&lt;task id="1.2"&gt;</span>
+<span class="xml-key">  goal:</span> Initialize Next.js project
+    with TypeScript, ESLint, Prettier
+<span class="xml-key">  accept:</span> Running dev server,
+    clean lint, CI config
+<span class="xml-key">  verify:</span> npm run build succeeds
+<span class="xml-tag">&lt;/task&gt;</span>
+
+<span class="xml-tag">&lt;task id="1.3"&gt;</span>
+<span class="xml-key">  goal:</span> Configure project tooling
+    (env, paths, base structure)
+<span class="xml-key">  accept:</span> .env.example, aliases,
+    folder conventions
+<span class="xml-key">  verify:</span> Project boots with defaults
+<span class="xml-tag">&lt;/task&gt;</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCK B — EXECUTE -->
+    <div class="value-block vb-execute vb-reverse">
+      <div class="glass-wrapper">
+        <span class="step-tag" aria-hidden="true">02 · EXECUTE</span>
+        <div class="block-inner">
+          <div class="block-content">
+            <span class="category-label">WAVE-BASED EXECUTION</span>
+            <h2 class="headline-lg">Fresh context. Atomic commits. Parallel when possible.</h2>
+            <p class="body-text">
+              Each task runs in isolation with a clean context. No accumulated hallucinations. Tasks in the same wave run in parallel. Each task gets its own git commit. Traceability is baked in.
+            </p>
+            <div class="sub-features">
+              <div class="sub-feature glass-card">
+                <strong>Fresh context per task</strong>
+                <span class="feature-desc">Every task starts with a clean slate. No stale assumptions from previous tasks.</span>
+              </div>
+              <div class="sub-feature glass-card">
+                <strong>Atomic git commits</strong>
+                <span class="feature-desc">Each task produces exactly one commit. Clean history, easy rollback.</span>
+              </div>
+              <div class="sub-feature glass-card">
+                <strong>Parallel wave execution</strong>
+                <span class="feature-desc">Independent tasks run simultaneously. Dependent tasks wait their turn.</span>
+              </div>
+            </div>
+          </div>
+          <div class="block-visual">
+            <div class="wave-diagram">
+              <div class="wave-label">WAVE 1 <span class="dim-text">(parallel)</span></div>
+              <div class="wave-tasks">
+                <div class="task-box glass-card">
+                  <div class="task-header">
+                    <span class="task-id">1.1</span>
+                    <span class="task-git-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+                    </span>
+                  </div>
+                  <div class="task-name">Database schema</div>
+                  <div class="task-status">
+                    <span class="check">✓</span>
+                    <span class="duration">12min</span>
+                  </div>
+                </div>
+                <div class="task-box glass-card">
+                  <div class="task-header">
+                    <span class="task-id">1.2</span>
+                    <span class="task-git-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+                    </span>
+                  </div>
+                  <div class="task-name">Next.js setup</div>
+                  <div class="task-status">
+                    <span class="check">✓</span>
+                    <span class="duration">8min</span>
+                  </div>
+                </div>
+                <div class="task-box glass-card">
+                  <div class="task-header">
+                    <span class="task-id">1.3</span>
+                    <span class="task-git-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+                    </span>
+                  </div>
+                  <div class="task-name">Project config</div>
+                  <div class="task-status">
+                    <span class="check">✓</span>
+                    <span class="duration">5min</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wave-connector">
+                <svg width="400" height="60" viewBox="0 0 400 60">
+                  <path d="M 80,0 Q 80,30 200,30 Q 320,30 320,60" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                  <path d="M 200,0 Q 200,30 200,60" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                  <path d="M 320,0 Q 320,30 200,30 Q 80,30 80,60" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                </svg>
+              </div>
+
+              <div class="wave-label">WAVE 2 <span class="dim-text">(dependent)</span></div>
+              <div class="wave-tasks wave-tasks-single">
+                <div class="task-box glass-card">
+                  <div class="task-header">
+                    <span class="task-id">1.4</span>
+                    <span class="task-git-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+                    </span>
+                  </div>
+                  <div class="task-name">Auth endpoints</div>
+                  <div class="task-status">
+                    <span class="check">✓</span>
+                    <span class="duration">15min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCK C — VERIFY -->
+    <div class="value-block vb-verify">
+      <div class="glass-wrapper">
+        <span class="step-tag" aria-hidden="true">03 · VERIFY</span>
+        <div class="block-inner">
+          <div class="block-content">
+            <span class="category-label">QUALITY ASSURANCE</span>
+            <h2 class="headline-lg">Prove it works. Don't hope it works.</h2>
+            <p class="body-text">
+              The Verifier agent checks every task against observable truths — does the file exist? Does the API respond correctly? The Debugger agent investigates failures. No guesswork.
+            </p>
+            <ol class="verify-timeline">
+              <li class="vt-step">
+                <div class="vt-marker">
+                  <span class="vt-dot">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </div>
+                <div class="vt-body">
+                  <span class="vt-tag">Step 01 · Check</span>
+                  <strong>Observable truth validation</strong>
+                  <span class="feature-desc">Every acceptance criterion is verified against actual state, not assumptions.</span>
+                </div>
+              </li>
+              <li class="vt-step">
+                <div class="vt-marker">
+                  <span class="vt-dot">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </div>
+                <div class="vt-body">
+                  <span class="vt-tag">Step 02 · Recover</span>
+                  <strong>Automated debugging</strong>
+                  <span class="feature-desc">Failed tasks get sent to the Debugger agent with full context and error traces.</span>
+                </div>
+              </li>
+              <li class="vt-step">
+                <div class="vt-marker">
+                  <span class="vt-dot">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </div>
+                <div class="vt-body">
+                  <span class="vt-tag">Step 03 · Prevent</span>
+                  <strong>Guard rails</strong>
+                  <span class="feature-desc">6 guard patterns prevent common failure modes before they compound.</span>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <div class="block-visual">
+            <Terminal>
+              <pre><code><span class="gold">⟐</span> <span class="secondary">Verifying phase 01-foundation...</span>
+
+<span class="green">✓</span> <span class="secondary">Task 1.1: Database schema</span>
+  <span class="green">✓</span> <span class="secondary">prisma/schema.prisma exists</span>
+  <span class="green">✓</span> <span class="secondary">prisma validate passed</span>
+  <span class="green">✓</span> <span class="secondary">3 models with relations defined</span>
+
+<span class="green">✓</span> <span class="secondary">Task 1.2: Next.js setup</span>
+  <span class="green">✓</span> <span class="secondary">package.json dependencies installed</span>
+  <span class="green">✓</span> <span class="secondary">npm run build succeeds</span>
+  <span class="dim">✗</span> <span class="secondary">ESLint config missing → auto-fixed</span>
+
+<span class="green">✓</span> <span class="secondary">Task 1.3: Project config</span>
+  <span class="green">✓</span> <span class="secondary">.env.example created</span>
+  <span class="green">✓</span> <span class="secondary">tsconfig paths configured</span>
+
+<span class="green">✓</span> <span class="secondary">All 3 tasks verified — 0 failures</span>
+<span class="gold">→</span> <span class="secondary">Phase 01 approved for merge</span></code></pre>
+            </Terminal>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+#value-blocks {
+  position: relative;
+  padding-top: 200px;
+  background: var(--bg-hero);
+  overflow: hidden;
+}
+
+.vb-heading {
+  max-width: 720px;
+  margin: 0 auto var(--space-3xl);
+  text-align: center;
+}
+
+.vb-heading .category-label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.vb-heading .headline-lg {
+  margin-bottom: 12px;
+}
+
+.vb-heading .body-text {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+#value-blocks::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: clamp(140px, 20vh, 220px);
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 8, 0) 0%,
+    rgba(8, 8, 8, 0.7) 70%,
+    var(--bg-hero) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+#value-blocks .container-wide {
+  position: relative;
+  z-index: 1;
+}
+
+.value-block {
+  position: relative;
+  margin: 0 auto 72px;
+  max-width: 1200px;
+}
+
+.value-block:last-child {
+  margin-bottom: 0;
+}
+
+/* Vertical connector between blocks */
+.value-block:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -54px;
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0)
+  );
+  transform: translateX(-50%);
+}
+
+.value-block .glass-wrapper {
+  position: relative;
+  overflow: visible;
+}
+
+/* Step tag — floating chip anchored to top-left of the block */
+.step-tag {
+  position: absolute;
+  top: -14px;
+  left: 32px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(12, 12, 12, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  color: var(--text-secondary);
+}
+
+.vb-plan .step-tag {
+  color: var(--accent-gold);
+  border-color: rgba(200, 169, 114, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 22px rgba(200, 169, 114, 0.15);
+}
+
+.vb-execute .step-tag {
+  color: var(--accent-green);
+  border-color: rgba(127, 186, 92, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 22px rgba(127, 186, 92, 0.15);
+}
+
+.vb-verify .step-tag {
+  color: var(--accent-copper);
+  border-color: rgba(196, 122, 82, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 22px rgba(196, 122, 82, 0.15);
+}
+
+/* Accent glow inside wrappers (radial) */
+.vb-plan .glass-wrapper::after,
+.vb-execute .glass-wrapper::after,
+.vb-verify .glass-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    600px 260px at 0% 0%,
+    var(--accent-tint, rgba(255, 255, 255, 0.04)) 0%,
+    transparent 60%
+  );
+  opacity: 0.55;
+}
+
+.vb-plan .glass-wrapper { --accent-tint: rgba(200, 169, 114, 0.08); }
+.vb-execute .glass-wrapper { --accent-tint: rgba(127, 186, 92, 0.08); }
+.vb-verify .glass-wrapper { --accent-tint: rgba(196, 122, 82, 0.08); }
+
+.vb-execute .glass-wrapper::after {
+  background: radial-gradient(
+    600px 260px at 100% 0%,
+    var(--accent-tint) 0%,
+    transparent 60%
+  );
+}
+
+.block-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Reverse order for zig-zag rhythm */
+.vb-reverse .block-inner > .block-content {
+  order: 2;
+}
+
+.vb-reverse .block-inner > .block-visual {
+  order: 1;
+}
+
+.block-content .category-label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.headline-lg {
+  margin-bottom: 16px;
+}
+
+.body-text {
+  margin-bottom: 24px;
+  max-width: 500px;
+}
+
+/* Feature list with glass pill tags */
+.feature-list {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.feature-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.feature-pill {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--glass-radius-pill);
+  padding: 4px 14px;
+  width: fit-content;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding-left: 14px;
+}
+
+/* Divided feature list (verify section) */
+.feature-list-divided li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.feature-list-divided li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.feature-list-divided strong {
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.feature-list-divided .feature-desc {
+  padding-left: 0;
+}
+
+.verify-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.verify-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Verify timeline */
+.verify-timeline {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  position: relative;
+}
+
+.vt-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+.vt-step:last-child {
+  padding-bottom: 0;
+}
+
+.vt-marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Vertical connector line */
+.vt-step:not(:last-child) .vt-marker::after {
+  content: '';
+  position: absolute;
+  top: 28px;
+  bottom: -8px;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(196, 122, 82, 0.45) 0%,
+    rgba(196, 122, 82, 0.12) 100%
+  );
+  transform: translateX(-50%);
+}
+
+.vt-dot {
+  position: relative;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(196, 122, 82, 0.12);
+  border: 1px solid rgba(196, 122, 82, 0.5);
+  box-shadow: 0 0 0 4px rgba(196, 122, 82, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-copper);
+  flex-shrink: 0;
+  transition: var(--glass-transition);
+}
+
+.vt-step:hover .vt-dot {
+  background: rgba(196, 122, 82, 0.22);
+  box-shadow: 0 0 0 6px rgba(196, 122, 82, 0.08), 0 0 16px rgba(196, 122, 82, 0.25);
+}
+
+.vt-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 1px;
+}
+
+.vt-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-copper);
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.vt-body strong {
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.vt-body .feature-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding-left: 0;
+}
+
+.replaces-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.replaces-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.replaces-items {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+/* Sub-feature floating cards (execute section) */
+.sub-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sub-feature {
+  padding: 16px 20px;
+}
+
+.sub-feature strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.sub-feature .feature-desc {
+  padding-left: 0;
+}
+
+/* CODE PANEL — deep glass terminal */
+.code-panel {
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--glass-radius-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: var(--glass-blur) saturate(170%);
+  -webkit-backdrop-filter: var(--glass-blur) saturate(170%);
+  overflow: hidden;
+}
+
+.code-header {
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.code-filename {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.code-body {
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.yaml-front { color: var(--text-tertiary); }
+.yaml-key { color: var(--accent-gold); }
+.yaml-value { color: var(--accent-green); }
+.yaml-number { color: var(--accent-copper); }
+.xml-tag { color: var(--accent-gold); }
+.xml-key { color: var(--text-secondary); }
+
+/* WAVE DIAGRAM */
+.wave-diagram {
+  padding: 32px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--glass-radius-lg);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--glass-blur) saturate(160%);
+  -webkit-backdrop-filter: var(--glass-blur) saturate(160%);
+}
+
+.wave-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.dim-text {
+  color: var(--text-tertiary);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.wave-tasks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.wave-tasks-single {
+  grid-template-columns: 1fr;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.task-box {
+  padding: 16px;
+  text-align: center;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-id {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+}
+
+.task-git-icon {
+  color: var(--text-tertiary);
+  display: flex;
+}
+
+.task-name {
+  font-size: 13px;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.task-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.check {
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.duration {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.wave-connector {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .block-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .wave-tasks {
+    grid-template-columns: 1fr;
+  }
+
+  .vb-reverse .block-inner > .block-content { order: 1; }
+  .vb-reverse .block-inner > .block-visual { order: 2; }
+
+  .step-tag {
+    left: 20px;
+  }
+}
+</style>

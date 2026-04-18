@@ -1,0 +1,1007 @@
+---
+import Layout from './Layout.astro';
+
+interface Section {
+  id: string;
+  label: string;
+  children?: { id: string; label: string }[];
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  sections: Section[];
+}
+
+const { title, description, sections } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div class="docs-page" id="docs-page">
+    <header class="docs-topbar">
+      <a href="/" class="docs-logo" aria-label="EZ Agents home">EZ AGENTS</a>
+      <button type="button" id="docs-theme-toggle" class="docs-theme-toggle" aria-label="Toggle docs theme" aria-pressed="false">
+        <span class="theme-icon" aria-hidden="true">◐</span>
+        <span class="theme-label">Dark mode</span>
+      </button>
+    </header>
+
+    <div class="docs-shell">
+    <!-- Left sidebar: section nav -->
+    <aside class="docs-sidebar" aria-label="Documentation navigation">
+      <div class="sidebar-inner">
+        <div class="sidebar-search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="search" placeholder="Filter sections…" id="docs-filter" autocomplete="off" />
+          <kbd>/</kbd>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Sections">
+          <div class="sidebar-group">
+            <div class="sidebar-group-label">Documentation</div>
+            <ul>
+              {sections.map((sec) => (
+                <li class="sidebar-item" data-section={sec.id}>
+                  <a href={`#${sec.id}`} class="sidebar-link" data-target={sec.id}>
+                    <span class="sidebar-num">{String(sections.indexOf(sec) + 1).padStart(2, '0')}</span>
+                    <span class="sidebar-label">{sec.label}</span>
+                  </a>
+                  {sec.children && sec.children.length > 0 && (
+                    <ul class="sidebar-sublist">
+                      {sec.children.map((child) => (
+                        <li>
+                          <a href={`#${child.id}`} class="sidebar-sublink" data-target={child.id}>
+                            {child.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a href="https://github.com/howlil/ez-agents" target="_blank" rel="noopener" class="sidebar-footer-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.26.82-.577 0-.286-.011-1.04-.017-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.835 2.81 1.305 3.495.998.108-.776.42-1.305.762-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.468-2.382 1.236-3.222-.124-.303-.535-1.524.117-3.176 0 0 1.008-.323 3.3 1.23A11.5 11.5 0 0 1 12 5.8c1.02.005 2.047.138 3.006.404 2.29-1.553 3.297-1.23 3.297-1.23.654 1.652.243 2.873.12 3.176.77.84 1.235 1.912 1.235 3.222 0 4.61-2.807 5.62-5.48 5.92.43.37.815 1.103.815 2.222 0 1.604-.015 2.898-.015 3.293 0 .32.218.694.825.576C20.565 21.795 24 17.297 24 12c0-6.63-5.37-12-12-12Z"/></svg>
+            <span>Edit on GitHub</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="docs-main">
+      <div class="docs-breadcrumb">
+        <a href="/">Home</a>
+        <span class="bc-sep">/</span>
+        <span class="bc-current">Docs</span>
+      </div>
+      <article class="docs-article">
+        <slot />
+      </article>
+      <footer class="docs-page-footer">
+        <p>EZ Agents · MIT Licensed · v5.0.6</p>
+      </footer>
+    </main>
+
+    <!-- Right TOC -->
+    <aside class="docs-toc" aria-label="On this page">
+      <div class="toc-inner">
+        <div class="toc-label">On this page</div>
+        <ul id="toc-list"></ul>
+      </div>
+    </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+.docs-page {
+  --docs-bg: var(--bg-hero);
+  --text-primary: rgba(255, 255, 255, 0.9);
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-tertiary: rgba(255, 255, 255, 0.35);
+  --text-muted: rgba(255, 255, 255, 0.25);
+  --accent-gold: #c8a972;
+  --accent-green: #7fba5c;
+  --accent-copper: #c47a52;
+  --docs-border: rgba(255, 255, 255, 0.06);
+  --docs-border-strong: rgba(255, 255, 255, 0.12);
+  --docs-surface-subtle: rgba(255, 255, 255, 0.025);
+  --docs-surface-soft: rgba(255, 255, 255, 0.035);
+  --docs-surface-muted: rgba(255, 255, 255, 0.06);
+  --docs-code-bg: rgba(0, 0, 0, 0.55);
+  --docs-table-head: rgba(255, 255, 255, 0.03);
+  --docs-row-hover: rgba(255, 255, 255, 0.02);
+  --docs-link-underline: rgba(200, 169, 114, 0.3);
+  --docs-active-bg: rgba(200, 169, 114, 0.08);
+  background: var(--docs-bg);
+  min-height: 100vh;
+}
+
+.docs-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--docs-border);
+  background: var(--docs-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.docs-logo {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+.docs-shell {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 240px;
+  gap: 0;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: 64px;
+  min-height: 100vh;
+  background: var(--docs-bg);
+  color: var(--text-primary);
+  color-scheme: dark;
+}
+
+/* SIDEBAR */
+.docs-sidebar {
+  position: sticky;
+  top: 64px;
+  align-self: start;
+  height: calc(100vh - 64px);
+  border-right: 1px solid var(--docs-border);
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px 16px 16px 24px;
+  overflow-y: auto;
+}
+
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--docs-border);
+  border-radius: 8px;
+  background: var(--docs-surface-subtle);
+  margin-bottom: 20px;
+  color: var(--text-tertiary);
+}
+
+.sidebar-search svg { flex-shrink: 0; }
+
+.sidebar-search input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+
+.sidebar-search input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.sidebar-search kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--docs-surface-muted);
+  border: 1px solid var(--docs-border);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--text-secondary);
+}
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-right: -4px;
+}
+
+.sidebar-group {
+  margin-bottom: 16px;
+}
+
+.sidebar-group-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  padding: 4px 8px;
+  margin-bottom: 4px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-item {
+  margin-bottom: 1px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-left: 2px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  line-height: 1.45;
+}
+
+.sidebar-link:hover {
+  background: var(--docs-surface-soft);
+  color: var(--text-primary);
+}
+
+.sidebar-link.is-active {
+  color: var(--text-primary);
+  background: var(--docs-active-bg);
+  border-left-color: var(--accent-gold);
+}
+
+.sidebar-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  min-width: 18px;
+}
+
+.sidebar-link.is-active .sidebar-num {
+  color: var(--accent-gold);
+}
+
+.sidebar-label {
+  flex: 1;
+}
+
+.sidebar-sublist {
+  margin: 2px 0 6px 26px !important;
+  padding-left: 8px !important;
+  border-left: 1px solid var(--docs-border);
+}
+
+.sidebar-sublink {
+  display: block;
+  padding: 4px 8px;
+  font-size: 12.5px;
+  color: var(--text-tertiary);
+  border-radius: 4px;
+  border-left: 2px solid transparent;
+  margin-left: -10px;
+  padding-left: 10px;
+}
+
+.sidebar-sublink:hover {
+  color: var(--text-primary);
+}
+
+.sidebar-sublink.is-active {
+  color: var(--accent-gold);
+  border-left-color: var(--accent-gold);
+}
+
+.sidebar-footer {
+  padding-top: 16px;
+  margin-top: 12px;
+  border-top: 1px solid var(--docs-border);
+}
+
+.sidebar-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.sidebar-footer-link:hover { color: var(--text-primary); }
+
+/* MAIN CONTENT */
+.docs-main {
+  min-width: 0;
+  padding: 32px 64px 80px;
+}
+
+.docs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  font-family: var(--font-mono);
+}
+
+.docs-theme-toggle {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--docs-border-strong);
+  border-radius: 999px;
+  background: var(--docs-surface-soft);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.docs-theme-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--docs-border-strong);
+  background: var(--docs-surface-muted);
+}
+
+.theme-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.docs-breadcrumb a {
+  color: var(--text-tertiary);
+  transition: color 0.15s ease;
+}
+
+.docs-breadcrumb a:hover { color: var(--text-primary); }
+
+.bc-current {
+  color: var(--text-secondary);
+}
+
+.docs-article {
+  max-width: 760px;
+}
+
+.docs-page-footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--docs-border);
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* RIGHT TOC */
+.docs-toc {
+  position: sticky;
+  top: 64px;
+  align-self: start;
+  height: calc(100vh - 64px);
+  border-left: 1px solid var(--docs-border);
+}
+
+.toc-inner {
+  padding: 32px 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.toc-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 12px;
+}
+
+#toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--docs-border);
+}
+
+#toc-list li a {
+  display: block;
+  padding: 4px 12px;
+  font-size: 12.5px;
+  color: var(--text-tertiary);
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  line-height: 1.5;
+}
+
+#toc-list li a:hover {
+  color: var(--text-primary);
+}
+
+#toc-list li a.is-active {
+  color: var(--accent-gold);
+  border-left-color: var(--accent-gold);
+}
+
+#toc-list li.toc-h3 a {
+  padding-left: 24px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* TYPOGRAPHY for docs content */
+.docs-article :global(h1) {
+  font-size: clamp(30px, 3.5vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  color: var(--text-primary);
+}
+
+.docs-article :global(h1 + .lede),
+.docs-article :global(.lede) {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.55;
+}
+
+.docs-article :global(h2) {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 56px 0 16px;
+  color: var(--text-primary);
+  scroll-margin-top: 80px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--docs-border);
+}
+
+.docs-article :global(h3) {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 36px 0 10px;
+  color: var(--text-primary);
+  scroll-margin-top: 80px;
+}
+
+.docs-article :global(h4) {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 24px 0 8px;
+  color: var(--text-primary);
+}
+
+.docs-article :global(p) {
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+}
+
+.docs-article :global(a) {
+  color: var(--accent-gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--docs-link-underline);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.docs-article :global(a:hover) {
+  border-bottom-color: var(--accent-gold);
+}
+
+.docs-article :global(ul),
+.docs-article :global(ol) {
+  padding-left: 24px;
+  margin: 0 0 16px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.docs-article :global(li) {
+  margin-bottom: 6px;
+}
+
+.docs-article :global(strong) {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.docs-article :global(em) {
+  font-style: italic;
+}
+
+/* INLINE CODE */
+.docs-article :global(code) {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--docs-surface-muted);
+  border: 1px solid var(--docs-border);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--accent-gold);
+}
+
+/* CODE BLOCKS */
+.docs-article :global(pre) {
+  background: var(--docs-code-bg);
+  border: 1px solid var(--docs-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 16px 0 24px;
+  overflow-x: auto;
+  position: relative;
+}
+
+.docs-article :global(pre.has-copy) {
+  padding-top: 48px;
+}
+
+.docs-article :global(.docs-copy-btn) {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--docs-border);
+  background: var(--docs-surface-soft);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.docs-article :global(.docs-copy-btn:hover) {
+  color: var(--text-primary);
+  border-color: var(--docs-border-strong);
+  background: var(--docs-surface-muted);
+}
+
+.docs-article :global(.docs-copy-btn.is-copied) {
+  color: var(--accent-gold);
+  border-color: rgba(200, 169, 114, 0.35);
+}
+
+.docs-article :global(.docs-copy-btn svg) {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+.docs-article :global(pre code) {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.65;
+}
+
+/* TABLES */
+.docs-article :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 28px;
+  font-size: 14px;
+}
+
+.docs-article :global(thead) {
+  background: var(--docs-table-head);
+}
+
+.docs-article :global(th),
+.docs-article :global(td) {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--docs-border);
+  vertical-align: top;
+}
+
+.docs-article :global(th) {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom-color: var(--docs-border-strong);
+}
+
+.docs-article :global(td) {
+  color: var(--text-secondary);
+}
+
+.docs-article :global(tbody tr:hover) {
+  background: var(--docs-row-hover);
+}
+
+/* CALLOUTS */
+.docs-article :global(.callout) {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--docs-border);
+  background: var(--docs-surface-subtle);
+  margin: 20px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.docs-article :global(.callout-tip) {
+  border-color: rgba(127, 186, 92, 0.3);
+  background: rgba(127, 186, 92, 0.05);
+}
+
+.docs-article :global(.callout-warn) {
+  border-color: rgba(200, 169, 114, 0.3);
+  background: rgba(200, 169, 114, 0.05);
+}
+
+.docs-article :global(.callout-icon) {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--docs-surface-muted);
+  color: var(--text-primary);
+  height: fit-content;
+}
+
+.docs-article :global(.callout-tip .callout-icon) {
+  background: rgba(127, 186, 92, 0.18);
+  color: var(--accent-green);
+}
+
+.docs-article :global(.callout-warn .callout-icon) {
+  background: rgba(200, 169, 114, 0.18);
+  color: var(--accent-gold);
+}
+
+/* HEADING ANCHOR */
+.docs-article :global(h2),
+.docs-article :global(h3) {
+  position: relative;
+}
+
+.docs-article :global(h2 .anchor),
+.docs-article :global(h3 .anchor) {
+  position: absolute;
+  left: -22px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  border: none;
+  text-decoration: none;
+  font-size: 0.8em;
+  transition: opacity 0.15s ease;
+  padding: 0 4px;
+}
+
+.docs-article :global(h2:hover .anchor),
+.docs-article :global(h3:hover .anchor) {
+  opacity: 1;
+}
+
+/* LIGHT THEME (docs only) */
+.docs-page[data-theme='light'] {
+  --docs-bg: #f8fafc;
+  --text-primary: rgba(15, 23, 42, 0.95);
+  --text-secondary: rgba(15, 23, 42, 0.78);
+  --text-tertiary: rgba(15, 23, 42, 0.58);
+  --text-muted: rgba(15, 23, 42, 0.42);
+  --accent-gold: #8a5a0f;
+  --accent-green: #2f7d32;
+  --accent-copper: #9a4f2a;
+  --docs-border: rgba(15, 23, 42, 0.14);
+  --docs-border-strong: rgba(15, 23, 42, 0.24);
+  --docs-surface-subtle: rgba(15, 23, 42, 0.03);
+  --docs-surface-soft: rgba(15, 23, 42, 0.045);
+  --docs-surface-muted: rgba(15, 23, 42, 0.07);
+  --docs-code-bg: #f1f5f9;
+  --docs-table-head: rgba(15, 23, 42, 0.05);
+  --docs-row-hover: rgba(15, 23, 42, 0.035);
+  --docs-link-underline: rgba(138, 90, 15, 0.34);
+  --docs-active-bg: rgba(138, 90, 15, 0.14);
+}
+
+.docs-page[data-theme='light'] .docs-shell {
+  color-scheme: light;
+}
+
+.docs-page[data-theme='light'] .docs-topbar {
+  background: rgba(248, 250, 252, 0.9);
+  border-bottom-color: var(--docs-border);
+}
+
+/* Astro markdown code blocks inject inline dark background styles; override in light mode */
+.docs-page[data-theme='light'] .docs-article :global(pre.astro-code) {
+  background-color: #f1f5f9 !important;
+  color: rgba(15, 23, 42, 0.92) !important;
+  border-color: var(--docs-border) !important;
+}
+
+.docs-page[data-theme='light'] .docs-article :global(pre.astro-code span[style*='color: #E1E4E8']),
+.docs-page[data-theme='light'] .docs-article :global(pre.astro-code span[style*='color:#E1E4E8']) {
+  color: rgba(15, 23, 42, 0.92) !important;
+}
+
+.docs-page[data-theme='light'] .docs-article :global(pre.astro-code span[style*='color:']),
+.docs-page[data-theme='light'] .docs-article :global(pre.astro-code span[style*='color:']) * {
+  color: rgba(15, 23, 42, 0.92) !important;
+}
+
+/* Terminal component consistency in docs light mode */
+.docs-page[data-theme='light'] :global(.terminal) {
+  background: #f8fafc;
+  border-color: var(--docs-border);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
+}
+
+.docs-page[data-theme='light'] :global(.terminal.large) {
+  background: #f8fafc;
+  border-color: var(--docs-border-strong);
+}
+
+.docs-page[data-theme='light'] :global(.terminal-chrome) {
+  background: var(--docs-surface-soft);
+  border-color: var(--docs-border);
+}
+
+.docs-page[data-theme='light'] :global(.terminal-title) {
+  color: var(--text-tertiary);
+}
+
+.docs-page[data-theme='light'] :global(.terminal-body) {
+  color: var(--text-primary);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1280px) {
+  .docs-shell {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+  .docs-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .docs-topbar {
+    padding: 0 16px;
+  }
+
+  .docs-shell {
+    grid-template-columns: 1fr;
+  }
+  .docs-sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--docs-border);
+  }
+  .sidebar-inner {
+    max-height: 50vh;
+  }
+  .docs-main {
+    padding: 24px 20px 60px;
+  }
+
+  .docs-theme-toggle {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const docsPage = document.getElementById('docs-page') as HTMLElement | null;
+  if (!docsPage) return;
+
+  const themeToggle = document.getElementById('docs-theme-toggle') as HTMLButtonElement | null;
+  const themeLabel = themeToggle?.querySelector<HTMLElement>('.theme-label') ?? null;
+  const THEME_KEY = 'ez-docs-theme';
+
+  const applyDocsTheme = (theme: 'dark' | 'light') => {
+    docsPage.dataset.theme = theme;
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    }
+    if (themeLabel) {
+      themeLabel.textContent = theme === 'light' ? 'Light mode' : 'Dark mode';
+    }
+  };
+
+  const storedTheme = localStorage.getItem(THEME_KEY);
+  const preferredTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  const initialTheme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : preferredTheme;
+  applyDocsTheme(initialTheme);
+
+  themeToggle?.addEventListener('click', () => {
+    const nextTheme = docsPage.dataset.theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem(THEME_KEY, nextTheme);
+    applyDocsTheme(nextTheme);
+  });
+
+  // Active section highlighting via IntersectionObserver
+  const sidebarLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('.sidebar-link, .sidebar-sublink')
+  );
+  const headings = Array.from(
+    document.querySelectorAll<HTMLElement>('.docs-article h2[id], .docs-article h3[id]')
+  );
+
+  // Build right TOC dynamically
+  const tocList = document.getElementById('toc-list');
+  if (tocList) {
+    headings.forEach((h) => {
+      const li = document.createElement('li');
+      li.className = h.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.dataset.target = h.id;
+      a.textContent = h.textContent?.replace(/^#\s*/, '').trim() ?? '';
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+  }
+  const tocLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('#toc-list a')
+  );
+
+  if (headings.length === 0) return;
+
+  const setActive = (id: string) => {
+    sidebarLinks.forEach((l) => {
+      l.classList.toggle('is-active', l.dataset.target === id);
+    });
+    tocLinks.forEach((l) => {
+      l.classList.toggle('is-active', l.dataset.target === id);
+    });
+  };
+
+  let activeId = headings[0].id;
+  setActive(activeId);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      // Pick the topmost intersecting heading
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length > 0) {
+        const id = (visible[0].target as HTMLElement).id;
+        if (id !== activeId) {
+          activeId = id;
+          setActive(id);
+        }
+      }
+    },
+    { rootMargin: '-80px 0px -70% 0px', threshold: 0 }
+  );
+
+  headings.forEach((h) => observer.observe(h));
+
+  // Add anchor links to headings
+  document
+    .querySelectorAll<HTMLElement>('.docs-article h2[id], .docs-article h3[id]')
+    .forEach((h) => {
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.className = 'anchor';
+      a.setAttribute('aria-label', `Link to ${h.textContent}`);
+      a.textContent = '#';
+      h.appendChild(a);
+    });
+
+  // Copy buttons for code/command blocks
+  document.querySelectorAll<HTMLElement>('.docs-article pre').forEach((pre) => {
+    if (pre.dataset.copyReady === 'true') return;
+    const code = pre.querySelector('code');
+    const source = (code?.textContent ?? pre.textContent ?? '').trimEnd();
+    if (!source) return;
+
+    pre.dataset.copyReady = 'true';
+    pre.classList.add('has-copy');
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'docs-copy-btn';
+    button.setAttribute('aria-label', 'Copy code');
+    button.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span>Copy</span>
+    `;
+
+    const labelEl = button.querySelector('span');
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(source);
+        button.classList.add('is-copied');
+        if (labelEl) labelEl.textContent = 'Copied';
+        window.setTimeout(() => {
+          button.classList.remove('is-copied');
+          if (labelEl) labelEl.textContent = 'Copy';
+        }, 1600);
+      } catch {
+        if (labelEl) labelEl.textContent = 'Failed';
+        window.setTimeout(() => {
+          if (labelEl) labelEl.textContent = 'Copy';
+        }, 1600);
+      }
+    });
+
+    pre.appendChild(button);
+  });
+
+  // Sidebar filter
+  const filter = document.getElementById('docs-filter') as HTMLInputElement | null;
+  if (filter) {
+    filter.addEventListener('input', () => {
+      const q = filter.value.toLowerCase().trim();
+      document
+        .querySelectorAll<HTMLElement>('.sidebar-item')
+        .forEach((item) => {
+          const match =
+            !q ||
+            (item.textContent ?? '').toLowerCase().includes(q);
+          item.style.display = match ? '' : 'none';
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault();
+        filter.focus();
+      }
+    });
+  }
+})();
+</script>

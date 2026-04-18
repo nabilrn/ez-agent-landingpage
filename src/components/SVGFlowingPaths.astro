@@ -1,0 +1,190 @@
+---
+// SVGFlowingPaths.astro
+// Dozens of thin SVG paths that flow and animate continuously
+---
+
+<svg id="flowing-paths" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <!-- Subtle gradient for path opacity variation -->
+    <linearGradient id="pathFadeLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5F3EF" stop-opacity="0" />
+      <stop offset="20%" stop-color="#F5F3EF" stop-opacity="0.08" />
+      <stop offset="80%" stop-color="#F5F3EF" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#F5F3EF" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="pathFadeRight" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#F5F3EF" stop-opacity="0" />
+      <stop offset="20%" stop-color="#F5F3EF" stop-opacity="0.08" />
+      <stop offset="80%" stop-color="#F5F3EF" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#F5F3EF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- LEFT FLOWING PATHS (36 paths flowing from left to center-right) -->
+  <g class="paths-left">
+    <path class="flow-path" style="--duration: 23s; --delay: 0s;" d="M -100,200 Q 400,180 800,350 T 1600,280 T 2100,320" />
+    <path class="flow-path" style="--duration: 27s; --delay: -3s;" d="M -100,280 Q 350,300 750,220 T 1500,400 T 2100,350" />
+    <path class="flow-path" style="--duration: 25s; --delay: -7s;" d="M -100,350 Q 450,280 900,420 T 1700,300 T 2100,380" />
+    <path class="flow-path" style="--duration: 29s; --delay: -12s;" d="M -100,420 Q 380,450 850,320 T 1600,450 T 2100,400" />
+    <path class="flow-path" style="--duration: 24s; --delay: -5s;" d="M -100,500 Q 420,480 780,550 T 1550,420 T 2100,480" />
+    <path class="flow-path" style="--duration: 26s; --delay: -9s;" d="M -100,580 Q 400,600 900,480 T 1650,560 T 2100,520" />
+    <path class="flow-path" style="--duration: 28s; --delay: -15s;" d="M -100,650 Q 480,580 820,620 T 1500,500 T 2100,580" />
+    <path class="flow-path" style="--duration: 22s; --delay: -2s;" d="M -100,720 Q 360,700 880,680 T 1700,640 T 2100,650" />
+    <path class="flow-path" style="--duration: 30s; --delay: -18s;" d="M -100,150 Q 500,180 750,280 T 1400,200 T 2100,250" />
+    <path class="flow-path" style="--duration: 25s; --delay: -6s;" d="M -100,230 Q 420,200 820,300 T 1580,320 T 2100,280" />
+    <path class="flow-path" style="--duration: 27s; --delay: -11s;" d="M -100,310 Q 380,340 880,260 T 1620,380 T 2100,340" />
+    <path class="flow-path" style="--duration: 24s; --delay: -4s;" d="M -100,390 Q 440,360 760,440 T 1520,360 T 2100,420" />
+    <path class="flow-path" style="--duration: 29s; --delay: -14s;" d="M -100,470 Q 400,500 920,380 T 1680,480 T 2100,460" />
+    <path class="flow-path" style="--duration: 26s; --delay: -8s;" d="M -100,540 Q 460,520 800,580 T 1560,440 T 2100,500" />
+    <path class="flow-path" style="--duration: 23s; --delay: -1s;" d="M -100,610 Q 380,640 860,520 T 1640,580 T 2100,560" />
+    <path class="flow-path" style="--duration: 28s; --delay: -16s;" d="M -100,690 Q 420,660 780,700 T 1480,520 T 2100,620" />
+    <path class="flow-path" style="--duration: 25s; --delay: -10s;" d="M -100,760 Q 480,720 900,640 T 1720,680 T 2100,700" />
+    <path class="flow-path" style="--duration: 27s; --delay: -13s;" d="M -100,180 Q 360,220 840,320 T 1540,260 T 2100,300" />
+  </g>
+  
+  <!-- RIGHT FLOWING PATHS (36 paths flowing from right to center-left) -->
+  <g class="paths-right">
+    <path class="flow-path" style="--duration: 24s; --delay: -2s;" d="M 2020,220 Q 1600,200 1200,340 T 400,300 T -100,350" />
+    <path class="flow-path" style="--duration: 26s; --delay: -6s;" d="M 2020,300 Q 1550,280 1150,220 T 350,380 T -100,320" />
+    <path class="flow-path" style="--duration: 28s; --delay: -10s;" d="M 2020,380 Q 1620,400 1080,420 T 480,280 T -100,400" />
+    <path class="flow-path" style="--duration: 25s; --delay: -4s;" d="M 2020,450 Q 1580,430 1180,320 T 420,450 T -100,440" />
+    <path class="flow-path" style="--duration: 23s; --delay: -1s;" d="M 2020,520 Q 1500,500 1220,540 T 380,400 T -100,500" />
+    <path class="flow-path" style="--duration: 27s; --delay: -8s;" d="M 2020,600 Q 1640,580 1100,480 T 460,560 T -100,580" />
+    <path class="flow-path" style="--duration: 29s; --delay: -14s;" d="M 2020,670 Q 1520,640 1260,600 T 320,480 T -100,640" />
+    <path class="flow-path" style="--duration: 24s; --delay: -5s;" d="M 2020,740 Q 1600,720 1140,680 T 440,640 T -100,720" />
+    <path class="flow-path" style="--duration: 26s; --delay: -9s;" d="M 2020,160 Q 1560,180 1200,280 T 500,200 T -100,240" />
+    <path class="flow-path" style="--duration: 28s; --delay: -12s;" d="M 2020,240 Q 1620,220 1060,300 T 360,320 T -100,280" />
+    <path class="flow-path" style="--duration: 25s; --delay: -7s;" d="M 2020,320 Q 1540,340 1180,260 T 480,360 T -100,360" />
+    <path class="flow-path" style="--duration: 23s; --delay: -3s;" d="M 2020,400 Q 1680,380 1240,440 T 400,340 T -100,420" />
+    <path class="flow-path" style="--duration: 27s; --delay: -11s;" d="M 2020,480 Q 1500,460 1120,380 T 340,480 T -100,480" />
+    <path class="flow-path" style="--duration: 29s; --delay: -16s;" d="M 2020,560 Q 1620,540 1280,580 T 460,420 T -100,540" />
+    <path class="flow-path" style="--duration: 24s; --delay: -6s;" d="M 2020,630 Q 1560,600 1040,500 T 380,560 T -100,620" />
+    <path class="flow-path" style="--duration: 26s; --delay: -13s;" d="M 2020,700 Q 1640,680 1200,640 T 420,520 T -100,680" />
+    <path class="flow-path" style="--duration: 28s; --delay: -17s;" d="M 2020,780 Q 1520,760 1160,700 T 500,660 T -100,760" />
+    <path class="flow-path" style="--duration: 25s; --delay: -9s;" d="M 2020,200 Q 1580,220 1220,320 T 440,280 T -100,260" />
+  </g>
+</svg>
+
+<script is:inline>
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Animate paths with CSS + JS hybrid approach
+  // Paths draw themselves continuously using stroke-dashoffset animation
+  const paths = document.querySelectorAll('.flow-path');
+  if (!paths.length) return;
+  
+  paths.forEach(function(path) {
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+    
+    // Trigger initial draw
+    requestAnimationFrame(function() {
+      path.style.strokeDashoffset = '0';
+    });
+  });
+})();
+</script>
+
+<style>
+#flowing-paths {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flow-path {
+  fill: none;
+  stroke: #F5F3EF;
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+
+/* Left-side paths: 3-10% opacity */
+.paths-left .flow-path {
+  stroke: url(#pathFadeLeft);
+  animation: drawPath var(--duration) linear var(--delay) infinite;
+  opacity: 0.06;
+}
+
+/* Right-side paths: 3-12% opacity */
+.paths-right .flow-path {
+  stroke: url(#pathFadeRight);
+  animation: drawPathReverse var(--duration) linear var(--delay) infinite;
+  opacity: 0.08;
+}
+
+/* Vary stroke widths for depth */
+.paths-left .flow-path:nth-child(odd) {
+  stroke-width: 0.5;
+  opacity: 0.04;
+}
+
+.paths-left .flow-path:nth-child(even) {
+  stroke-width: 1;
+  opacity: 0.08;
+}
+
+.paths-left .flow-path:nth-child(3n) {
+  stroke-width: 1.2;
+  opacity: 0.10;
+}
+
+.paths-right .flow-path:nth-child(odd) {
+  stroke-width: 0.6;
+  opacity: 0.05;
+}
+
+.paths-right .flow-path:nth-child(even) {
+  stroke-width: 0.9;
+  opacity: 0.07;
+}
+
+.paths-right .flow-path:nth-child(3n) {
+  stroke-width: 1.5;
+  opacity: 0.12;
+}
+
+/* Continuous draw animation */
+@keyframes drawPath {
+  0% {
+    stroke-dashoffset: var(--path-length, 2000);
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawPathReverse {
+  0% {
+    stroke-dashoffset: var(--path-length, 2000);
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .flow-path {
+    stroke-width: 0.5 !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .paths-left .flow-path:nth-child(odd),
+  .paths-right .flow-path:nth-child(odd) {
+    display: none;
+  }
+}
+
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  #flowing-paths {
+    display: none;
+  }
+}
+</style>

@@ -1,0 +1,558 @@
+---
+// Hero.astro — Depth Black Glass Fluid
+// Full-viewport hero section with WebGL light, flowing paths, and spring text
+
+import WebGLChromaticLight from './WebGLChromaticLight.astro';
+import SVGFlowingPaths from './SVGFlowingPaths.astro';
+import Navigation from './Navigation.astro';
+import Terminal from './Terminal.astro';
+---
+
+<section id="hero">
+  <!-- Visual layers — UNTOUCHED -->
+  <WebGLChromaticLight />
+  <SVGFlowingPaths />
+
+  <!-- Navigation -->
+  <Navigation />
+
+  <!-- Center content -->
+  <div class="hero-content">
+    <h1 class="headline">
+      <span class="headline-text">Build software with a process, not a prayer.</span>
+    </h1>
+
+    <p class="subheadline">
+      8 AI agents. A 10-phase lifecycle. Wave-based execution. Fresh context per task. One git commit per task.
+    </p>
+
+    <div class="cta-group">
+      <div class="install-block glass-pill" id="install-block">
+        <code class="install-text">$ npm install -g @howlil/ez-agents</code>
+        <button class="copy-btn" id="copy-btn" aria-label="Copy install command">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+      </div>
+
+      <a href="/docs" class="cta-button glass-pill" target="_blank" rel="noopener">
+        Get Started <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="runtime-bar">
+      <span class="runtime-label">Works inside:</span>
+      <span class="runtimes">Claude Code · OpenCode · Gemini CLI · Codex · Github Copilot · Qwen · Kimi</span>
+    </div>
+
+    <div class="availability">
+      <span class="pulse-indicator"></span>
+      <span class="version">v5.0.0 — MIT Licensed</span>
+    </div>
+  </div>
+
+  <!-- Floating terminal panel -->
+  <div class="scroll-container" id="scroll-container">
+    <div class="scroll-perspective">
+      <div class="hero-terminal" id="hero-terminal-card">
+      <Terminal large={true}>
+          <pre class="ascii-banner"><code><span class="gold">  _____ _____     _    ____ _____ _   _ _____ ____
+ | ____|__  /    / \  / ___| ____| \ | |_   _/ ___|
+ |  _|   / /    / _ \| |  _|  _| |  \| | | | \___ \
+ | |___ / /_   / ___ \ |_| | |___| |\  | | |  ___) |
+ |_____/____| /_/   \_\____|_____|_| \_| |_| |____/</span>
+
+<span class="dim">        AI Agent Orchestration System</span>
+<span class="dim">   Build software with coordinated AI agents</span></code></pre>
+          <pre><code><span class="prompt">$ /ez:run-phase 1 --yolo</span>
+
+<span class="gold">⟐</span> <span class="secondary">Planning phase 01-foundation...</span>
+  <span class="dim">→ 3 plans across 2 waves</span>
+
+<span class="gold">⟐</span> <span class="secondary">Executing Wave 1 (parallel):</span>
+  <span class="green">✓</span> <span class="secondary">Task 1.1: Database schema     </span><span class="dim">[fresh ctx] → committed</span>
+  <span class="green">✓</span> <span class="secondary">Task 1.2: Next.js project     </span><span class="dim">[fresh ctx] → committed</span>
+  <span class="green">✓</span> <span class="secondary">Task 1.3: Project config      </span><span class="dim">[fresh ctx] → committed</span>
+
+<span class="gold">⟐</span> <span class="secondary">Executing Wave 2:</span>
+  <span class="green">✓</span> <span class="secondary">Task 1.4: Auth endpoints      </span><span class="dim">[fresh ctx] → committed</span>
+
+<span class="gold">⟐</span> <span class="secondary">Verifying...</span>
+  <span class="green">✓</span> <span class="secondary">All observable truths satisfied</span>
+  <span class="green">✓</span> <span class="secondary">4 commits · 12 files</span>
+
+<span class="green">✓</span> <span class="secondary">Phase 01 complete — 47 min</span></code></pre>
+      </Terminal>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+#hero {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg-hero);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+#hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(180px, 28vh, 280px);
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 8, 0) 0%,
+    rgba(8, 8, 8, 0.62) 58%,
+    rgba(8, 8, 8, 0.92) 82%,
+    var(--bg-hero) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 920px;
+  padding: 0 24px;
+  padding-top: 72px;
+}
+
+/* Dark radial backdrop behind text for readability over WebGL light */
+.hero-content::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200vw;
+  height: 200vh;
+  background: radial-gradient(
+    ellipse 800px 600px at center,
+    rgba(8, 8, 8, 0.85) 0%,
+    rgba(8, 8, 8, 0.6) 40%,
+    rgba(8, 8, 8, 0.2) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.headline {
+  margin-bottom: 20px;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.headline-text {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  max-width: 13ch;
+  margin-inline: auto;
+  text-wrap: balance;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+  padding-bottom: 0.08em;
+}
+
+.headline-text :global(.char) {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: spring-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.headline-text :global(.word) {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.headline-text :global(.word-space) {
+  display: inline-block;
+  width: 0.3em;
+}
+
+@keyframes spring-in {
+  0% { opacity: 0; transform: translateY(100%); }
+  60% { opacity: 1; transform: translateY(-8%); }
+  80% { transform: translateY(3%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.subheadline {
+  font-size: clamp(17px, 1.45vw, 21px);
+  color: var(--text-secondary);
+  line-height: 1.68;
+  letter-spacing: 0.005em;
+  max-width: 60ch;
+  margin: 0 auto;
+  text-wrap: pretty;
+  opacity: 0;
+  animation: fade-in 1.5s ease-out 0.8s forwards;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.cta-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fade-in 1.2s ease-out 1.2s forwards;
+}
+
+/* Glass pill buttons in hero — stronger background for readability */
+.install-block {
+  padding: 14px 22px;
+  cursor: pointer;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+.install-text {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.copy-btn {
+  margin-left: 12px;
+  opacity: 0.5;
+  transition: opacity 0.25s ease;
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+}
+
+.copy-btn:hover { opacity: 1; }
+.copy-btn.copied { color: var(--text-primary); }
+
+.cta-button {
+  padding: 14px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+.cta-button:hover .arrow {
+  opacity: 1;
+  transform: translateX(6px);
+}
+
+.arrow {
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.runtime-bar {
+  margin-top: 34px;
+  max-width: 760px;
+  opacity: 0;
+  animation: fade-in 1.2s ease-out 1.5s forwards;
+}
+
+.runtime-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.runtimes {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-tertiary);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.availability {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  opacity: 0;
+  animation: fade-in 1.2s ease-out 1.8s forwards;
+}
+
+.pulse-indicator {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.pulse-indicator::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0;
+}
+
+@keyframes ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  75%, 100% { transform: scale(2.5); opacity: 0; }
+}
+
+.version {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* Scroll animation container */
+.scroll-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1120px;
+  margin-top: 60px;
+  margin-bottom: -120px;
+  padding: 0 24px;
+}
+
+.ascii-banner {
+  padding: 8px 0 4px;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  font-size: clamp(9px, 1vw, 13px);
+  line-height: 1.2;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.ascii-banner code {
+  display: inline-block;
+  text-align: left;
+  white-space: pre;
+}
+
+.ascii-banner :global(.gold) {
+  color: var(--accent-gold);
+  text-shadow: 0 0 12px rgba(200, 169, 114, 0.25);
+}
+
+.ascii-banner :global(.dim) {
+  display: block;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 0.9em;
+  letter-spacing: 0.02em;
+}
+
+.scroll-perspective {
+  perspective: 1000px;
+  perspective-origin: center top;
+}
+
+.hero-terminal {
+  transform-origin: center top;
+  transform: rotateX(20deg) scale(1.05);
+  will-change: transform;
+  transition: none;
+  box-shadow:
+    0 0 #00000033,
+    0 6px 14px #00000038,
+    0 24px 30px #00000030,
+    0 54px 38px #0000001c,
+    0 96px 45px #0000000a,
+    0 146px 50px #00000003;
+  border-radius: 20px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    max-width: 640px;
+    padding-top: 96px;
+  }
+  .headline {
+    margin-bottom: 16px;
+  }
+  .headline-text {
+    font-size: clamp(34px, 11vw, 46px);
+    max-width: 14ch;
+    letter-spacing: -0.025em;
+  }
+  .subheadline {
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 34ch;
+  }
+  .cta-group { flex-direction: column; }
+  .install-block { width: 100%; justify-content: space-between; }
+  .cta-button { width: 100%; justify-content: center; }
+  .runtime-bar { margin-top: 24px; }
+  .runtimes {
+    display: block;
+    font-size: 12.5px;
+    line-height: 1.55;
+  }
+  .scroll-container { margin-bottom: -60px; }
+  .hero-terminal {
+    transform: rotateX(15deg) scale(0.85);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headline-text :global(.char),
+  .subheadline,
+  .cta-group,
+  .runtime-bar,
+  .availability,
+  .pulse-indicator::before {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-terminal,
+  .hero-terminal:hover {
+    transform: none;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const headline = document.querySelector('.headline-text');
+  if (!headline) return;
+
+  const text = headline.textContent?.trim() ?? '';
+  headline.innerHTML = '';
+
+  const words = text.split(/\s+/);
+
+  words.forEach((word, wordIndex) => {
+    const wordSpan = document.createElement('span');
+    wordSpan.className = 'word';
+
+    [...word].forEach((char, charIndex) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = char;
+      const delay = (wordIndex * 0.1) + (charIndex * 0.03);
+      span.style.animationDelay = `${delay}s`;
+      wordSpan.appendChild(span);
+    });
+
+    headline.appendChild(wordSpan);
+
+    if (wordIndex < words.length - 1) {
+      const space = document.createElement('span');
+      space.className = 'word-space';
+      space.innerHTML = '&nbsp;';
+      space.style.animationDelay = `${(wordIndex + 1) * 0.1}s`;
+      headline.appendChild(space);
+    }
+  });
+})();
+
+(function() {
+  const installBlock = document.getElementById('install-block');
+  const copyBtn = document.getElementById('copy-btn');
+
+  if (!installBlock || !copyBtn) return;
+
+  installBlock.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('npm install -g @howlil/ez-agents');
+      copyBtn.classList.add('copied');
+      copyBtn.innerHTML = '<span style="color: var(--text-primary); font-size: 12px;">Copied!</span>';
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+      }, 2000);
+    } catch (err) { /* Fallback */ }
+  });
+})();
+
+// ContainerScroll animation — scroll-driven 3D perspective
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const container = document.getElementById('scroll-container');
+  const card = document.getElementById('hero-terminal-card');
+  if (!container || !card) return;
+
+  const isMobile = () => window.innerWidth <= 768;
+
+  const lerp = (start, end, t) => start + (end - start) * t;
+  const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
+
+  let ticking = false;
+
+  const updateTransform = () => {
+    const rect = container.getBoundingClientRect();
+    const viewH = window.innerHeight;
+
+    // Calculate scroll progress: 0 when container enters viewport, 1 when it's scrolled past center
+    const start = viewH;
+    const end = -rect.height;
+    const progress = clamp((start - rect.top) / (start - end), 0, 1);
+
+    // Animate values based on scroll progress
+    const rotateX = lerp(20, 0, progress);
+    const mobile = isMobile();
+    const scale = mobile
+      ? lerp(0.7, 0.9, progress)
+      : lerp(1.05, 1, progress);
+    const translateY = lerp(0, -40, progress);
+
+    card.style.transform = `rotateX(${rotateX}deg) scale(${scale}) translateY(${translateY}px)`;
+
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(updateTransform);
+      ticking = true;
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Initial state
+  updateTransform();
+})();
+
+</script>
