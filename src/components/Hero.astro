@@ -159,14 +159,12 @@ const docsPath = `${import.meta.env.BASE_URL}docs`;
 }
 
 .headline-text {
+  --headline-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 100%);
   font-size: clamp(40px, 6vw, 72px);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.05;
-  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: rgba(255, 255, 255, 0.92);
   display: block;
   max-width: 13ch;
   margin-inline: auto;
@@ -177,9 +175,27 @@ const docsPath = `${import.meta.env.BASE_URL}docs`;
 
 .headline-text :global(.char) {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(100%);
-  animation: spring-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 1;
+  transform: translateY(0);
+  animation: spring-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@supports ((-webkit-background-clip: text) and (-webkit-text-fill-color: transparent)) {
+  .headline-text {
+    background: var(--headline-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .headline-text :global(.char) {
+    background: var(--headline-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 }
 
 .headline-text :global(.word) {
